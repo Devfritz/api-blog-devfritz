@@ -1,6 +1,5 @@
 const User = require("../model/user/model-user");
-const getTokenFromHeader = require("../utils/getTokenFromHeader");
-const verifyToken = require("../utils/verifyToken");
+
 exports.getUsers = (req, res) => {
   return res.status(200).json({
     isSuccess: true,
@@ -55,8 +54,6 @@ exports.login = async (req, res) => {
     }
 
     const userFound = await User.findOne({ email }).select("+password");
-
-    console.log(userFound);
 
     const isMatchPassword = await userFound.comparePassword(password);
     if (!userFound || !isMatchPassword) {
