@@ -45,7 +45,7 @@ const userShema = new mongoose.Schema(
       type: String,
       enum: ["Admin", "Editor", "Guest"],
     },
-    viewBy: {
+    viewers: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
@@ -61,14 +61,31 @@ const userShema = new mongoose.Schema(
         ref: "User",
       },
     ],
-    active: {
-      type: Boolean,
-      default: true,
-    },
+
     posts: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Post",
+      },
+    ],
+    blocked: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    plan: [
+      {
+        type: String,
+        enum: ["free", "premium", "pro"],
+        default: "free",
+      },
+    ],
+    userAward: [
+      {
+        type: String,
+        enum: ["Bronze", "Silver", "Gold"],
+        default: "Bronze",
       },
     ],
   },
