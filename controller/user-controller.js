@@ -68,3 +68,32 @@ exports.login = tryCatch(async (req, res) => {
     });
   }
 });
+
+exports.photoProfile = tryCatch(async (req, res, next) => {
+  //  GET USer
+  const userToUploadPhoto = await User.findById(req.userAuth);
+
+  if (!userToUploadPhoto) {
+    throw new Error("USer Not Found");
+  }
+
+  if (req.file) {
+    //  update photo
+    await User.findByIdAndUpdate(
+      req.userAuth,
+      {
+        $set: {
+          profilePhoto: req.file.path,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+
+    res.status(201).json({
+      status: "success",
+      data: "profile photo upload",
+    });
+  }
+});

@@ -6,6 +6,7 @@ const verifyToken = (token) => {
       return false;
     } else {
       console.log("decoded => " + decoded.id);
+      console.log(decoded);
       return decoded;
     }
   });
