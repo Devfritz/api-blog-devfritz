@@ -20,4 +20,4 @@ app.all("*", (req, res, next) => {
   next(err);
 });
 
-app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
+app.listen(PORT, () => console.log(`Server is running on ${PORT}`))

@@ -45,10 +45,12 @@ const userShema = new mongoose.Schema(
       type: String,
       enum: ["Admin", "Editor", "Guest"],
     },
-    viewers: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
+    viewers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     followers: [
       {
         type: mongoose.Schema.Types.ObjectId,

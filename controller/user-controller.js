@@ -97,3 +97,28 @@ exports.photoProfile = tryCatch(async (req, res, next) => {
     });
   }
 });
+
+exports.wooViewMyProfile = tryCatch(async (req, res, next) => {
+  //  Get the user
+  const user = await User.findById(req.params.id);
+  // GET THE VIEWER
+  const viewer = await User.findById(req.userAuth);
+
+  if (user && viewer) {
+    //   Verify if this viewer  has visited this profile
+    const alreadyView = user.viewers.find(
+      (view) => view.toString() === viewer._id.toJSON()
+    );
+    if (alreadyView) {
+      throw new Error("viewer already exist");
+    } else {
+      user.viewers.push(viewer._id);
+      await user.save();
+
+      res.json({
+        isSuccess: true,
+        data: "You have successfully viewed this profile",
+      });
+    }
+  }
+});

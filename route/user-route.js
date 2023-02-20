@@ -7,6 +7,7 @@ const {
   login,
   getUser,
   photoProfile,
+  wooViewMyProfile,
 } = require("../controller/user-controller");
 const { isLogin } = require("../middleware/isLogin");
 
@@ -25,4 +26,5 @@ userRouter.post(
   photoProfile
 );
 
+userRouter.get("/viewer/user/:id", isLogin, wooViewMyProfile);
 module.exports = userRouter;
